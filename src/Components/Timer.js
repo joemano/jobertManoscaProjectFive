@@ -34,25 +34,6 @@ class Timer extends Component {
         minutes: this.state.minutes + 1
       });
     }
-
-    // // These 3 if/else statements are here so that the clock doesn't look dumb.
-    // if () {
-    //   this.setState({displayedCentiseconds: }) ;
-    // } else {
-    //   this.state.displayedCentiseconds = this.state.centiseconds;
-    // }
-
-    // if (this.state.seconds < 10) {
-    //   this.state.displayedSeconds = `0${this.state.seconds}`;
-    // } else {
-    //   this.state.displayedSeconds = this.state.seconds;
-    // }
-
-    // if (this.state.minutes < 10) {
-    //   this.state.displayedMinutes = `0${this.state.minutes}`;
-    // } else {
-    //   this.state.displayedMinutes = this.state.minutes;
-    // }
   }
   // Timer maths n logic goes here
   tick = () => {

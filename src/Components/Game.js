@@ -20,6 +20,8 @@ class Game extends Component {
       akagi, atago, hammann, kaga, pinghai, eugen, shoukaku, unicorn, yamashiro
     ];
 
+    this.cardData = [];
+
     this.timer = createRef();
 
     this.state = {
@@ -41,31 +43,28 @@ class Game extends Component {
 
   checkMatch = (card) => {
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
-      card.setState({selected: true});
+      card.setState({ selected: true });
 
       //lock flipping function while a card is flipping so they don't flip the whole board at once.
       if (!this.state.flipping) {
-        this.setState({flipping: true});
+        this.setState({ flipping: true });
 
         //only start the timer if this is the first flip of the game.
         if (!this.state.firstFlip) {
-          this.setState({firstFlip: true});
-          // memoryLane.startTimer();
+          this.setState({ firstFlip: true });
+          this.timer.current.startTimer();
         }
-        // "this" keyword is OP. plz nerf.
-        // $(this).toggleClass("flip");
-
         // This massive if chain is for checking whether or not the cards you selected match.
         // check if first card is selected and point the first card to the selected card.
         if (!this.state.firstCard) {
-          this.setState({firstCard: card});
+          this.setState({ firstCard: card });
         } else {
           console.log(this.state.firstCard, card);
           // compare the first and second cards for a match and checks for a win
           if (this.state.firstCard.state.face === card.state.face) {
             console.log('match');
-            this.state.firstCard.setState({matched: true}, ()=>{this.setState({firstCard: undefined})});
-            card.setState({matched: true});
+            this.state.firstCard.setState({ matched: true }, () => { this.setState({ firstCard: undefined }) });
+            card.setState({ matched: true });
 
             // OLD WIN CODE
             // if (memoryLane.checkWin()) {
@@ -85,36 +84,54 @@ class Game extends Component {
             //   $(".reset_box").toggleClass("reset_hidden");
             //   // memoryLane.reset();
             // }
-          } 
+          }
           else {
             console.log('NOPE');
             // punish a wrong guess and flip the 2 selected cards back down
-            this.setState({wrong: true});
+            this.setState({ wrong: true });
             setTimeout(() => {
-              this.state.firstCard.setState({selected: false}, ()=>{this.setState({firstCard: undefined})});
-              card.setState({selected: false});
+              this.state.firstCard.setState({ selected: false }, () => { this.setState({ firstCard: undefined }) });
+              card.setState({ selected: false });
             }, 600);
-            setTimeout(() => { this.setState({wrong: false}) }, 1100);
+            setTimeout(() => { this.setState({ wrong: false }) }, 1100);
           }
         }
 
         // wait until the card is done flipping.
         setTimeout(() => {
-          this.setState({flipping: false});
+          this.setState({ flipping: false });
         }, 500);
       }
     }
   }
 
   cardSelection = (card) => {
-    if(!this.state.start) {
-      this.setState({start: true}, ()=>{
-        this.timer.current.startTimer();
-      });
-      // memoryLane.showGameBoard();
+    if (!this.state.start) {
+      this.setState({ start: true });
+      this.showGameBoard();
     } else {
       this.checkMatch(card);
     }
+  }
+
+  showGameBoard = () => {
+    // console.log(this.cardData)
+    this.setState({showingBoard: true});
+    this.cardData.forEach((card) => {
+      card.setState({selected: true});
+    })
+    setTimeout(() => {
+      this.cardData.forEach((card) => {
+        card.setState({selected: false});
+      })
+    }, 3000);
+    setTimeout(() => {
+      this.setState({showingBoard: false});
+    }, 3500);
+  }
+
+  getCardData = (card) => {
+    this.cardData.push(card);
   }
 
   buildDeck = () => {
@@ -134,7 +151,7 @@ class Game extends Component {
       for (let j = 0; j < 6; j++) {
         randomNumber = Math.floor(Math.random() * this.state.deck.length);
         board[i].push(
-          <Card row={i} column={j} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} />
+          <Card row={i} column={j} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} getData={this.getCardData}/>
         );
         this.state.deck.splice(randomNumber, 1);
       }
