@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Timer starts ticking when game starts(DONE!)
 
-### Reveal cards when game starts(WIP)
+### Reveal cards when game starts(DONE!)
 
 
 ## Styling
@@ -20,10 +20,10 @@ Show logos of the people who made the original game this project is based on.
 ### Add disclaimer
 I don't own any of the pictures used so add a window that says that with a continue button.
 
-### Actually display the cards in a grid(WIP)
+### Actually display the cards in a grid(DONE!)
 Put the cards in a flex container or something to display them properly. 
 
 ### Display cards properly(WIP)
 Only show the backs of the cards and only reveal them when the javascript tells it to. Match should only be written on the card when the cards are matched.
 
-### Animate Flipping
+### Animate Flipping(DONE!)
