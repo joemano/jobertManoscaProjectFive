@@ -14,7 +14,7 @@ class Timer extends Component {
       displayedCentiseconds: 0,
       totalCentiseconds: 0,
       bestTotalCSeconds: undefined,
-      bestTime: "",
+      bestTime: "00:00:00",
     }
   }
 
@@ -50,12 +50,22 @@ class Timer extends Component {
 
   stopTimer = () => {
     clearInterval(this.state.clock);
+    if (this.state.totalCentiseconds < this.state.bestTotalCSeconds || !this.state.bestTotalCSeconds) {
+      let newBestTime = '';
+      this.state.minutes < 10 ? newBestTime += `0${this.state.minutes}:` : newBestTime += `${this.state.minutes}:`
+      this.state.seconds < 10 ? newBestTime += `0${this.state.seconds}:` : newBestTime += `${this.state.seconds}:`
+      this.state.centiseconds < 10 ? newBestTime += `0${this.state.centiseconds}` : newBestTime += `${this.state.centiseconds}`
+      this.setState({
+        bestTotalCSeconds: this.state.totalCentiseconds,
+        bestTime: newBestTime
+      });
+    }
   }
 
   render() {
     return (
       <div className="timer_holder">
-        <p className="time_text">Best Record: 00:00:00 Time: {this.state.minutes < 10 ? `0${this.state.minutes}` : this.state.minutes}
+        <p className="time_text">Best Record: {this.state.bestTime} Time: {this.state.minutes < 10 ? `0${this.state.minutes}` : this.state.minutes}
         :
         {this.state.seconds < 10 ? `0${this.state.seconds}` : this.state.seconds}
         :

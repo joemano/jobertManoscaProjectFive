@@ -41,6 +41,22 @@ class Game extends Component {
     }
   }
 
+  checkWin = () => {
+    const matches = this.cardData.filter((card) => {
+      return card.state.matched;
+    });
+
+    if (matches.length === 18) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  reset = () => {
+
+  }
+
   checkMatch = (card) => {
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
       card.setState({ selected: true });
@@ -64,26 +80,17 @@ class Game extends Component {
           if (this.state.firstCard.state.face === card.state.face) {
             console.log('match');
             this.state.firstCard.setState({ matched: true }, () => { this.setState({ firstCard: undefined }) });
-            card.setState({ matched: true });
+            card.setState({ matched: true }, () => {
+              if (this.checkWin()) {
+                this.timer.current.stopTimer();
+  
+  
+                alert(`YOU WON`);
+                // $(".reset_box").toggleClass("reset_hidden");
+                this.reset();
+              }
+            });
 
-            // OLD WIN CODE
-            // if (memoryLane.checkWin()) {
-            //   // memoryLane.win();
-            //   memoryLane.stopTimer();
-            //   if (memoryLane.totalCentiseconds < memoryLane.bestTotalCSeconds || !memoryLane.bestTotalCSeconds) {
-            //     memoryLane.bestTotalCSeconds = memoryLane.totalCentiseconds;
-            //     // $(".best_time").text($(".timer").text());
-            //     // .text() should return the value in that element but for some reason the line above appends twice.
-
-            //     $(".best_time").text(`${memoryLane.displayedMinutes}:${memoryLane.displayedSeconds}:${memoryLane.displayedCentiseconds}`);
-            //   }
-
-            //   // alert(`YOU WON
-            //   // Time: ${$(".timer").text()}
-            //   // Best: ${$(".best_time").text()}`);
-            //   $(".reset_box").toggleClass("reset_hidden");
-            //   // memoryLane.reset();
-            // }
           }
           else {
             console.log('NOPE');
@@ -116,17 +123,17 @@ class Game extends Component {
 
   showGameBoard = () => {
     // console.log(this.cardData)
-    this.setState({showingBoard: true});
+    this.setState({ showingBoard: true });
     this.cardData.forEach((card) => {
-      card.setState({selected: true});
+      card.setState({ selected: true });
     })
     setTimeout(() => {
       this.cardData.forEach((card) => {
-        card.setState({selected: false});
+        card.setState({ selected: false });
       })
     }, 3000);
     setTimeout(() => {
-      this.setState({showingBoard: false});
+      this.setState({ showingBoard: false });
     }, 3500);
   }
 
@@ -151,7 +158,7 @@ class Game extends Component {
       for (let j = 0; j < 6; j++) {
         randomNumber = Math.floor(Math.random() * this.state.deck.length);
         board[i].push(
-          <Card row={i} column={j} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} getData={this.getCardData}/>
+          <Card row={i} column={j} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} getData={this.getCardData} />
         );
         this.state.deck.splice(randomNumber, 1);
       }
