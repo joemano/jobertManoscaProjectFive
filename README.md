@@ -11,6 +11,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Styling
 
+### Add basic styles
+Fonts, colors, backgrounds and whatnot.
+
 ### Add splash screen
 Show logos of the people who made the original game this project is based on.
 

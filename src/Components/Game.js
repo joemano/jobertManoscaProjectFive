@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Timer from './Timer.js';
 import Board from './Board.js';
 import Card from './Card.js';
@@ -19,6 +19,8 @@ class Game extends Component {
     this.cardFaces = [
       akagi, atago, hammann, kaga, pinghai, eugen, shoukaku, unicorn, yamashiro
     ];
+
+    this.timer = createRef();
 
     this.state = {
       firstCard: undefined,
@@ -106,7 +108,9 @@ class Game extends Component {
 
   cardSelection = (card) => {
     if(!this.state.start) {
-      this.setState({start: true}, ()=>{this.checkMatch(card)});
+      this.setState({start: true}, ()=>{
+        this.timer.current.startTimer();
+      });
       // memoryLane.showGameBoard();
     } else {
       this.checkMatch(card);
@@ -147,7 +151,7 @@ class Game extends Component {
   render() {
     return (
       <div className="frame">
-        <Timer />
+        <Timer ref={this.timer} />
         <Board board={this.state.board} />
       </div>
     );

@@ -18,10 +18,68 @@ class Timer extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.centiseconds / 100 === 1) {
+      this.setState({
+        centiseconds: 0,
+        seconds: this.state.seconds + 1
+      });
+    }
+
+    if (this.state.seconds / 60 === 1) {
+      this.state.seconds = 0;
+      this.state.minutes++;
+      this.setState({
+        seconds: 0,
+        minutes: this.state.minutes + 1
+      });
+    }
+
+    // // These 3 if/else statements are here so that the clock doesn't look dumb.
+    // if () {
+    //   this.setState({displayedCentiseconds: }) ;
+    // } else {
+    //   this.state.displayedCentiseconds = this.state.centiseconds;
+    // }
+
+    // if (this.state.seconds < 10) {
+    //   this.state.displayedSeconds = `0${this.state.seconds}`;
+    // } else {
+    //   this.state.displayedSeconds = this.state.seconds;
+    // }
+
+    // if (this.state.minutes < 10) {
+    //   this.state.displayedMinutes = `0${this.state.minutes}`;
+    // } else {
+    //   this.state.displayedMinutes = this.state.minutes;
+    // }
+  }
+  // Timer maths n logic goes here
+  tick = () => {
+    this.setState({
+      centiseconds: this.state.centiseconds + 1,
+      totalCentiseconds: this.state.totalCentiseconds + 1
+    });
+  }
+
+  startTimer = () => {
+    // console.log('hi');
+    this.setState({clock: setInterval(this.tick, 10)});
+  }
+
+  stopTimer = () => {
+    clearInterval(this.state.clock);
+  }
+
   render() {
-    return(
+    return (
       <div className="timer_holder">
-        <p className="time_text">Best Record: <span className="best_time">00:00:00</span> Time: <span className="timer">00:00:00</span></p>
+        <p className="time_text">Best Record: 00:00:00 Time: {this.state.minutes < 10 ? `0${this.state.minutes}` : this.state.minutes}
+        :
+        {this.state.seconds < 10 ? `0${this.state.seconds}` : this.state.seconds}
+        :
+        {this.state.centiseconds < 10 ? `0${this.state.centiseconds}` : this.state.centiseconds}
+        </p>
       </div>
     );
   }
