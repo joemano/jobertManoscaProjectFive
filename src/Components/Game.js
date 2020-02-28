@@ -24,6 +24,7 @@ class Game extends Component {
 
     this.timer = createRef();
 
+    // this.flipping = false;
     this.state = {
       firstCard: undefined,
       // secondCard: undefined,
@@ -58,13 +59,25 @@ class Game extends Component {
   }
 
   checkMatch = (card) => {
+
+    
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
-      card.setState({ selected: true });
+
+    console.log("selected : ", card.state.selected);
+    console.log("wrong : ", this.state.wrong);
+    console.log("start : ", this.state.start);
+    console.log("showing : ", this.state.showingBoard);
+    console.log("flipping : ", this.flipping);
+    console.log("first flip : ", this.state.firstFlip);
+    console.log("first card pick : ", this.state.firstCardSelected);
+    console.log("-------------------------------------");
+      
 
       //lock flipping function while a card is flipping so they don't flip the whole board at once.
       if (!this.state.flipping) {
         this.setState({ flipping: true });
-
+        // this.flipping = true;
+        card.setState({ selected: true });
         //only start the timer if this is the first flip of the game.
         if (!this.state.firstFlip) {
           this.setState({ firstFlip: true });
@@ -106,7 +119,8 @@ class Game extends Component {
 
         // wait until the card is done flipping.
         setTimeout(() => {
-          this.setState({ flipping: false });
+          // this.setState({ flipping: false });
+          this.flipping = false;
         }, 500);
       }
     }
