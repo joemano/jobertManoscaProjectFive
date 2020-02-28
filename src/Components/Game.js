@@ -67,7 +67,7 @@ class Game extends Component {
     console.log("wrong : ", this.state.wrong);
     console.log("start : ", this.state.start);
     console.log("showing : ", this.state.showingBoard);
-    console.log("flipping : ", this.flipping);
+    console.log("flipping : ", this.state.flipping);
     console.log("first flip : ", this.state.firstFlip);
     console.log("first card pick : ", this.state.firstCardSelected);
     console.log("-------------------------------------");
@@ -96,16 +96,9 @@ class Game extends Component {
             card.setState({ matched: true }, () => {
               if (this.checkWin()) {
                 this.timer.current.stopTimer();
-  
-  
-                alert(`YOU WON`);
-                // $(".reset_box").toggleClass("reset_hidden");
-                this.reset();
               }
             });
-
-          }
-          else {
+          } else {
             console.log('NOPE');
             // punish a wrong guess and flip the 2 selected cards back down
             this.setState({ wrong: true });
@@ -119,8 +112,15 @@ class Game extends Component {
 
         // wait until the card is done flipping.
         setTimeout(() => {
-          // this.setState({ flipping: false });
-          this.flipping = false;
+          this.setState({ flipping: false });
+
+          if(card.state.matched){
+            if (this.checkWin()) {
+              alert(`YOU WON`);
+              // $(".reset_box").toggleClass("reset_hidden");
+              this.reset();
+            }
+          }
         }, 500);
       }
     }
