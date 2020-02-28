@@ -7,8 +7,6 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      column: props.column,
-      row: props.row,
       face: props.face,
       selected: props.selected,
       matched: props.matched,

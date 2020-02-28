@@ -208,7 +208,7 @@ class Game extends Component {
       for (let j = 0; j < 6; j++) {
         randomNumber = Math.floor(Math.random() * this.state.deck.length);
         board[i].push(
-          <Card row={i} column={j} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} getData={this.getCardData} />
+          <Card key={`x${j}y${i}`} selected={false} matched={false} face={this.state.deck[randomNumber]} cardSelect={this.cardSelection} getData={this.getCardData} />
         );
         this.state.deck.splice(randomNumber, 1);
       }
