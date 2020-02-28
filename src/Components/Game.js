@@ -54,24 +54,59 @@ class Game extends Component {
     }
   }
 
-  reset = () => {
+  boardReset = () => {
+    const deck = [];
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 9; j++) {
+        deck.push(this.cardFaces[j]);
+      }
+    }
 
+    let randomNumber;
+
+    this.cardData.forEach((card) => {
+      randomNumber = Math.floor(Math.random() * deck.length);
+      card.setState({ face: deck[randomNumber] });
+      deck.splice(randomNumber, 1);
+    })
+  }
+
+  reset = () => {
+    // $(".reset_box").toggleClass("reset_hidden");
+    this.setState({resetting: true});
+
+    this.cardData.forEach((card) => {
+      card.setState({ selected: false, matched: false });
+    })
+
+    // wait until cards are done flipping
+    setTimeout(() => {
+      this.boardReset();
+
+      this.timer.current.resetTimer();
+
+      // reset game states
+      this.setState({
+        start: false,
+        resetting: false,
+        firstFlip: false
+      });
+    }, 500);
   }
 
   checkMatch = (card) => {
 
-    
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
 
-    console.log("selected : ", card.state.selected);
-    console.log("wrong : ", this.state.wrong);
-    console.log("start : ", this.state.start);
-    console.log("showing : ", this.state.showingBoard);
-    console.log("flipping : ", this.state.flipping);
-    console.log("first flip : ", this.state.firstFlip);
-    console.log("first card pick : ", this.state.firstCardSelected);
-    console.log("-------------------------------------");
-      
+      // console.log("selected : ", card.state.selected);
+      // console.log("wrong : ", this.state.wrong);
+      // console.log("start : ", this.state.start);
+      // console.log("showing : ", this.state.showingBoard);
+      // console.log("flipping : ", this.state.flipping);
+      // console.log("first flip : ", this.state.firstFlip);
+      // console.log("first card pick : ", this.state.firstCardSelected);
+      // console.log("-------------------------------------");
+
 
       //lock flipping function while a card is flipping so they don't flip the whole board at once.
       if (!this.state.flipping) {
@@ -114,7 +149,7 @@ class Game extends Component {
         setTimeout(() => {
           this.setState({ flipping: false });
 
-          if(card.state.matched){
+          if (card.state.matched) {
             if (this.checkWin()) {
               alert(`YOU WON`);
               // $(".reset_box").toggleClass("reset_hidden");
@@ -128,6 +163,7 @@ class Game extends Component {
 
   cardSelection = (card) => {
     if (!this.state.start) {
+      console.log("game has started");
       this.setState({ start: true });
       this.showGameBoard();
     } else {
@@ -136,7 +172,7 @@ class Game extends Component {
   }
 
   showGameBoard = () => {
-    // console.log(this.cardData)
+    console.log(this.cardData);
     this.setState({ showingBoard: true });
     this.cardData.forEach((card) => {
       card.setState({ selected: true });
@@ -156,7 +192,7 @@ class Game extends Component {
   }
 
   buildDeck = () => {
-    const deck = []
+    const deck = [];
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < 9; j++) {
         deck.push(this.cardFaces[j]);

@@ -8,6 +8,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Reveal cards when game starts(DONE!)
 
+### Allow game to reset(DONE!)
+
+### Save time and name on firebase
+
 
 ## Styling
 
@@ -23,7 +27,7 @@ I don't own any of the pictures used so add a window that says that with a conti
 ### Actually display the cards in a grid(DONE!)
 Put the cards in a flex container or something to display them properly. 
 
-### Display cards properly(WIP)
-Only show the backs of the cards and only reveal them when the javascript tells it to. Match should only be written on the card when the cards are matched.
+### Display cards properly(Half Done)
+Card now need to be displayed properly regardless of screen size.
 
 ### Animate Flipping(DONE!)

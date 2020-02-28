@@ -31,7 +31,7 @@ class Card extends Component {
             <img src={cardBack} alt="back of card."/>
           </div>
           <div className="gameCardFace">
-            <img src={this.props.face} alt=""/>
+            <img src={this.state.face} alt=""/>
           </div>
           {this.state.matched ? <p className="match">Match</p> : null}
         </div>

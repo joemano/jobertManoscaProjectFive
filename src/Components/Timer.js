@@ -7,11 +7,8 @@ class Timer extends Component {
     this.state = {
       clock: undefined,
       minutes: 0,
-      displayedMinutes: 0,
       seconds: 0,
-      displayedSeconds: 0,
       centiseconds: 0,
-      displayedCentiseconds: 0,
       totalCentiseconds: 0,
       bestTotalCSeconds: undefined,
       bestTime: "00:00:00",
@@ -60,6 +57,15 @@ class Timer extends Component {
         bestTime: newBestTime
       });
     }
+  }
+
+  resetTimer = () => {
+    this.setState({
+      minutes: 0,
+      seconds: 0,
+      centiseconds: 0,
+      totalCentiseconds: 0
+    });
   }
 
   render() {
