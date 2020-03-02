@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Allow game to reset(DONE!)
 
-### Save time and name on firebase(WIP)
+### Save time and name on firebase(DONE!)
 
 
 ## Styling

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 
 class Timer extends Component {
   constructor() {
@@ -59,6 +60,10 @@ class Timer extends Component {
     }
   }
 
+  getBestTime = () => {
+    return this.state.bestTime;
+  }
+
   resetTimer = () => {
     this.setState({
       minutes: 0,
@@ -70,8 +75,8 @@ class Timer extends Component {
 
   render() {
     return (
-      <div className="timer_holder">
-        <p className="time_text">Best Record: {this.state.bestTime} Time: {this.state.minutes < 10 ? `0${this.state.minutes}` : this.state.minutes}
+      <div className="timerHolder">
+        <p className="timeText">Best Record: {this.state.bestTime} Time: {this.state.minutes < 10 ? `0${this.state.minutes}` : this.state.minutes}
         :
         {this.state.seconds < 10 ? `0${this.state.seconds}` : this.state.seconds}
         :

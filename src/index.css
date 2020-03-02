@@ -34,7 +34,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1.6rem;
   line-height: 2rem;
-  /* background-image: url("../assets/ALUIBackground.PNG"); */
+  background-image: url("./assets/images/background.png");
   background-position: center;
   background-size: cover;
   color: #f8f8f8;
@@ -228,13 +228,22 @@ header nav {
 /* /////////////////////////// */
 
 .frame {
-  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+
   background-color: #cccc;
   border: 2px #d3d3d3 solid;
   padding: 10px;
+  max-width: 1280px;
+  height: 100vh;
+  margin: auto;
 }
 
-.time_text {
+.timerHolder {
+  height: 10vh;
+}
+
+.timeText {
   background-color: #5271b4cc;
   border: 2px #758cb8 solid;
   padding: 10px;
@@ -249,6 +258,7 @@ header nav {
   background-color: #666c;
   border: 2px #808080 solid;
   margin-top: 10px;
+  height: 90vh;
 }
 
 .reset_box {
@@ -318,7 +328,7 @@ header nav {
 .gameGrid {
   display: flex;
   width: 100%;
-  height: 90vh;
+  height: 100%;
   flex-wrap: wrap;
 }
 

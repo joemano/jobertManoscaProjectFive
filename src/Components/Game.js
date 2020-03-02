@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react';
+import firebase from '../firebase.js';
 import Timer from './Timer.js';
 import Board from './Board.js';
 import Card from './Card.js';
@@ -23,11 +24,14 @@ class Game extends Component {
     this.cardData = [];
 
     this.timer = createRef();
+    this.dbRef = firebase.database().ref();
+    this.bestTimesRef = firebase.database().ref('bestTimes');
 
     // this.flipping = false;
     this.state = {
       firstCard: undefined,
-      // secondCard: undefined,
+      
+      name: '',
 
       start: false,
       resetting: false,
@@ -37,6 +41,7 @@ class Game extends Component {
       firstCardSelected: false,
       wrong: false,
 
+      bestTimes: [],
       deck: [],
       board: [],
     }
@@ -153,6 +158,14 @@ class Game extends Component {
             if (this.checkWin()) {
               alert(`YOU WON`);
               // $(".reset_box").toggleClass("reset_hidden");
+              let tempName = prompt("Enter name to save best time");
+              this.setState({name: tempName}, () => {
+                const bestTimeData = {
+                  name: this.state.name,
+                  time: this.timer.current.getBestTime()
+                };
+                this.bestTimesRef.push(bestTimeData);
+              });
               this.reset();
             }
           }
@@ -218,14 +231,34 @@ class Game extends Component {
     })
   }
 
+  convertTimeToNumber = (timeString) => {
+    const timeArray = timeString.split(":");
+    const timeInCentiseconds = (parseInt(timeArray[0]) * 6000) + (parseInt(timeArray[1]) * 100) + parseInt(timeArray[2]);
+    return timeInCentiseconds;
+  }
+
+  displayBestTimes = () => {
+    console.log(this.state.bestTimes);
+  }
+
   componentDidMount() {
     this.buildDeck();
+    this.bestTimesRef.on('value', (response) => {
+      const timeArray = Object.values(response.val());
+      timeArray.sort((timeA, timeB) => {
+        return this.convertTimeToNumber(timeA.time) - this.convertTimeToNumber(timeB.time);
+      })
+      this.setState({
+        bestTimes: timeArray
+      }, () => {console.log(this.state.bestTimes)});
+    });
   }
 
   render() {
     return (
       <div className="frame">
         <Timer ref={this.timer} />
+        {/* <button onClick={this.displayBestTimes}>Show Best Times</button> */}
         <Board board={this.state.board} />
       </div>
     );
