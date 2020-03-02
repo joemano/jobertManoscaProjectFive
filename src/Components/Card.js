@@ -7,11 +7,9 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      column: props.column,
-      row: props.row,
       face: props.face,
       selected: props.selected,
-      matched: props.matched
+      matched: props.matched,
     };
   }
 
@@ -19,15 +17,19 @@ class Card extends Component {
     // console.log(this.state.selected, this.state.matched);
   }
 
+  componentDidMount() {
+    this.props.getData(this);
+  }
+
   render() {
     return (
-      <div className="game_card_holder">
-        <div className="game_card" onClick={() => {this.props.cardSelect(this)}}>
-          <div className="game_card_back">
+      <div className="gameCardHolder">
+        <div className={this.state.selected ? "gameCard flip" : "gameCard"} onClick={() => {this.props.cardSelect(this)}}>
+          <div className="gameCardBack">
             <img src={cardBack} alt="back of card."/>
           </div>
-          <div className="game_card_face">
-            <img src={this.props.face} alt=""/>
+          <div className="gameCardFace">
+            <img src={this.state.face} alt=""/>
           </div>
           {this.state.matched ? <p className="match">Match</p> : null}
         </div>

@@ -12,7 +12,8 @@ class Board extends Component {
   render() {
     return(
       <div className="gameBoard">
-        <div className="gameGrid">
+        {/* The ugly callback is there to prevent ghost images when dragging */}
+        <div className="gameGrid" onDragStart={(e) => {e.preventDefault()}}>
           {this.props.board}
         </div>
       </div>
