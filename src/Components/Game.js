@@ -12,6 +12,9 @@ import eugen from '../assets/images/5.png';
 import shoukaku from '../assets/images/6.png';
 import unicorn from '../assets/images/7.png';
 import yamashiro from '../assets/images/8.png';
+import manjuu from '../assets/images/manjuuLogo.png';
+import yongshi from '../assets/images/yongshiLogo.png';
+import yostar from '../assets/images/yostarLogo.png';
 
 class Game extends Component {
   constructor() {
@@ -258,7 +261,6 @@ class Game extends Component {
     return (
       <div className="frame">
         <Timer ref={this.timer} />
-        {/* <button onClick={this.displayBestTimes}>Show Best Times</button> */}
         <Board board={this.state.board} />
       </div>
     );

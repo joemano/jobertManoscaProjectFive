@@ -18,14 +18,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Add basic styles(WIP)
 Fonts, colors, backgrounds and whatnot.
 
-### Add splash screen
+### Add splash screen(WIP)
 Show logos of the people who made the original game this project is based on.
 
-### Add disclaimer
+### Add disclaimer(WIP)
 I don't own any of the pictures used so add a window that says that with a continue button.
 
 ### Actually display the cards in a grid(DONE!)
-Put the cards in a flex container or something to display them properly. 
 
 ### Display cards properly(Half Done)
 Card now need to be displayed properly regardless of screen size.

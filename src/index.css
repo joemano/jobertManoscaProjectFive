@@ -82,34 +82,38 @@ nav a:hover:after, nav a:focus:after, nav a:active:after,
   transition: transform 0.2s ease-in;
 }
 
-.tupac {
-  width: 80%;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
 img {
   max-width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 /* /////////////////////////// */
 /* SPLASH */
 /* /////////////////////////// */
-
-.splash_page {
-  position: fixed;
-  z-index: 20;
-  /* background-image: url("../assets/ALHomeBackground.PNG"); */
-  background-position: center;
-  background-size: cover;
+.splashScreen, .developers, .disclaimer{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+.splashScreen {
+  position: fixed;
+  z-index: 20;
+  background: #000;
   width: 100%;
   height: 100%;
+}
+
+.developers {
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .azur_lane_logo {
@@ -124,7 +128,7 @@ img {
   align-items: center;
 }
 
-.disclaimer_text {
+.disclaimerText {
   position: relative;
   background-color: #f8f8f8;
   color: #000;
@@ -133,46 +137,6 @@ img {
   border-radius: 10px;
   width: 50%;
 }
-/* //////////////////// */
-/* Speech Bubble Magic */
-/* //////////////////// */
-
-/* :before pseudo element for a small pointy shape behind the after.
- This is for the border around the point. */
-.disclaimer_text:before {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 0;
-
-  /* use border properties to determine the size of the shape and where the shape is to be placed */
-  border-left: 10px solid #000;
-  border-right: 10px solid transparent;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  
-  /* position of the backround pointy shape */
-  top: 50%;
-  right: -19px;
-}
-
-/* :after pseudo element for the shape that sits on top of the first one. */
-.disclaimer_text:after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 0;
-
-  border-left: 10px solid #fff;
-  border-right: 10px solid transparent;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-
-  top: 50%;
-  right: -17px;
-}
-/* /////////////////////////// */
-
 
 /* /////////////////////////// */
 /* HEADER */
@@ -334,23 +298,25 @@ header nav {
 
 .gameCardHolder {
   max-width: 185px;
-  /* max-height: 250px; */
   width: calc((100%/6) - 3%);
-  /* width: 185px; */
-  /* height: 250px; */
-  /* height: 100%; */
   margin: 1.5%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gameCard {
   position: relative;
   width: 100%;
+  max-width: 130px;
   height: 100%;
   text-align: center;
   transition: transform 0.5s;
   transform-style: preserve-3d;
 }
 
+/* Prevent highlighting on cards */
 .gameCard img, .gameCard p {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
