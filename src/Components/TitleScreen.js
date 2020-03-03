@@ -16,7 +16,7 @@ class TitleScreen extends Component {
         </div>
         <h1>Memory Lane</h1>
         <ul>
-          <li><button>start</button></li>
+          <li><button onClick={this.props.game}>start</button></li>
           <li><button>instructions</button></li>
           <li><button>leaderboards</button></li>
           <li><button>credits</button></li>

@@ -118,6 +118,8 @@ button {
 .developers {
   justify-content: space-evenly;
   width: 100%;
+  opacity: 0;
+  animation: fadeInOut 5s;
 }
 
 .azur_lane_logo {
@@ -140,6 +142,18 @@ button {
   border: 2px #000 solid;
   border-radius: 10px;
   width: 50%;
+}
+
+.fadeOut {
+  opacity: 0;
+  transition: opacity ease-in 0.5s;
+}
+
+@keyframes fadeInOut {
+  from {opacity: 0;}
+  30% {opacity: 1;}
+  70% {opacity: 1;}
+  to {opacity: 0;}
 }
 
 /* /////////////////////////// */

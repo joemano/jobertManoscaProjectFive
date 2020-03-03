@@ -43,7 +43,7 @@ class EndScreen extends Component {
             </div>
           </div>
           <div className="resetOptions">
-            <button className="cancel">Cancel</button>
+            <button className="cancel" onClick={this.props.title}>Cancel</button>
             {this.props.nameSaved ? null : <button onClick={() => {this.props.record(this.state.name)}} className="save">save</button>}
             <button onClick={this.props.reset} className="confirm">Confirm</button>
           </div>

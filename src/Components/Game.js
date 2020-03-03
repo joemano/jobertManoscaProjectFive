@@ -271,9 +271,9 @@ class Game extends Component {
           currentTime={this.timer.current.getCurrentTime()}
           bestTime={this.timer.current.getBestTime()}
           reset={this.reset} record={this.recordTime}
-          nameSaved={this.state.nameRecorded}/>
+          nameSaved={this.state.nameRecorded}
+          title={this.props.title}/>
           : null}
-          {/* <EndScreen bestArray={this.state.bestTimes} reset={this.reset} record={this.recordTime} nameSaved={this.state.nameRecorded}/> */}
       </div>
     );
   }
