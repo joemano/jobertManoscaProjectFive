@@ -123,11 +123,22 @@ button {
   animation: fadeInOut 5s;
 }
 
-.azur_lane_logo {
-  width: 100%;
-  text-align: center;
+.fadeOut {
+  opacity: 0;
+  transition: opacity ease-in 0.5s;
 }
 
+@keyframes fadeInOut {
+  from {opacity: 0;}
+  30% {opacity: 1;}
+  70% {opacity: 1;}
+  to {opacity: 0;}
+}
+/* ////////////////////////////// */
+
+/* /////////////////////////// */
+/* DISCLAIMER */
+/* /////////////////////////// */
 .disclaimer {
   background: #000;
 
@@ -152,6 +163,8 @@ button {
 
 .disclaimerImage {
   width: 50%;
+  position: relative;
+  animation: slideInFromLeft 1s;
 }
 
 .disclaimerText {
@@ -159,6 +172,7 @@ button {
   color: #f8f8f8;
   padding: 20px;
   width: 50%;
+  animation: fadeIn 1.5s;
 }
 
 .continue {
@@ -217,16 +231,14 @@ button {
   border-color: #ee9;
 }
 
-.fadeOut {
-  opacity: 0;
-  transition: opacity ease-in 0.5s;
+@keyframes slideInFromLeft {
+  from {right: 100%;}
+  to {right: 0;}
 }
 
-@keyframes fadeInOut {
+@keyframes fadeIn {
   from {opacity: 0;}
-  30% {opacity: 1;}
-  70% {opacity: 1;}
-  to {opacity: 0;}
+  to {opacity: 1;}
 }
 
 /* /////////////////////////// */
