@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Leaderboard from './Leaderboard.js'
 import azurLaneLogo from '../assets/images/azurLaneEnglishLogo.png';
 
 class TitleScreen extends Component {

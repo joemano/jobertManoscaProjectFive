@@ -12,7 +12,7 @@ class Splash extends Component {
 
   render() {
     return(
-      <div className="splashScreen">
+      <div className="splashScreen" onClick={this.props.disclaimer}>
         <div className="developers container" onAnimationEnd={this.props.disclaimer}>
           <div className="dev"><img src={manjuu} alt="Logo of Manjuu, one of the developers." /></div>
           <div className="dev"><img src={yongshi} alt="Logo of Yongshi, one of the developers." /></div>
