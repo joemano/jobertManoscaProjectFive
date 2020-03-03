@@ -10,7 +10,7 @@ class Leaderboard extends Component {
   render() {
     return(
       <div className="leaderboard">
-        <ul className="bestTimes">
+        <ul className="leaderTimes">
 
         </ul>
         <button>back</button>

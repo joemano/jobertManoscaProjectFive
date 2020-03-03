@@ -88,6 +88,10 @@ img {
   object-fit: contain;
 }
 
+button {
+  border: none;
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -142,51 +146,6 @@ img {
 /* HEADER */
 /* /////////////////////////// */
 
-header {
-  background-color: #eeec;
-  border: 2px #fff solid;
-  padding: 5px 0;
-  /* height: 10vh; */
-}
-
-.inner_header {
-  background-color: #5271b4;
-  border: 2px #36c solid;
-  /* background: repeating-linear-gradient(45deg, #98bcff, #98bcff 10px, #36c 10px, #36c 20px); */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-
-  font-size: 4rem;
-  padding: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5rem;
-}
-
-header h2 {
-  padding: 10px 20px 20px 20px;
-}
-
-header a, nav ul li a {
-  text-decoration: none;
-  color: #f8f8f8;
-}
-
-header nav ul li a {
-  text-transform: capitalize;
-  font-size: 4rem;
-  font-weight: 700;
-}
-
-header nav {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-
 /* /////////////////////////// */
 /* MAIN */
 /* /////////////////////////// */
@@ -198,7 +157,6 @@ header nav {
   background-color: #cccc;
   border: 2px #d3d3d3 solid;
   padding: 10px;
-  max-width: 1280px;
   height: 100vh;
   margin: auto;
 }
@@ -223,70 +181,6 @@ header nav {
   border: 2px #808080 solid;
   margin-top: 10px;
   height: 90vh;
-}
-
-.reset_box {
-  position: absolute;
-  z-index: 10;
-  background-color: #cccc;
-  border: 2px #d3d3d3 solid;
-  padding: 10px;
-  text-align: center;
-  /* margin: 100px 0; */
-  height: 50%;
-  width: 50%;
-}
-
-.reset_hidden {
-  display: none;
-}
-
-.reset_box h3 {
-  background-color: #36cc;
-  border: 2px #98bcff solid;
-  padding: 10px;
-  text-align: center;
-}
-
-.reset_box_times {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #444c;
-  border: 2px #808080 solid;
-  height: 50%;
-  padding: 10px;
-}
-
-.reset_box_times p {
-  width: 100%;
-}
-
-.reset_options {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-.cancel, .confirm {
-  padding: 20px 40px;
-}
-
-.cancel {
-  background-color: crimson;
-}
-
-.cancel:hover, .cancel:focus {
-  background-color: #ff8d8d;
-}
-
-.confirm {
-  background-color: #5271b4;
-}
-
-.confirm:hover, .confirm:focus {
-  background-color: #98bcff;
 }
 
 .gameGrid {
@@ -356,6 +250,144 @@ header nav {
 .flip.gameCard {
   transform: rotateY(180deg);
 }
+
+/* /////////////////////////// */
+/* END SCREEN */
+/* /////////////////////////// */
+.endScreen {
+  position: absolute;
+  z-index: 10;
+  background-color: #cccc;
+  border: 2px #d3d3d3 solid;
+  padding: 10px;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+}
+
+aside {
+  width: 30%;
+  padding: 10px;
+  margin-right: 10px;
+  background: #222c;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+aside::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+aside::-webkit-scrollbar-thumb {
+  background: #666; 
+}
+
+aside h3 {
+  padding: 10px;
+  border-bottom: 2px #d3d3d3 solid;
+}
+
+.bestTimes li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.bestTimes li:nth-child(even) {
+  background: #666c;
+}
+.endContent, .endText, .endInput, .times {
+  display: flex;
+  flex-direction: column;
+}
+
+.endContent {
+  width: 70%;
+}
+
+.endHeader {
+  background-color: #36cc;
+  border: 2px #98bcff solid;
+  padding: 10px;
+  text-align: center;
+}
+
+.endText {
+  justify-content: space-between;
+  background-image: url(./assets/images/amazon.png);
+  background-repeat: no-repeat;
+  background-size: 250px;
+  background-position: bottom left 10%;
+  background-color: #444c;
+  border: 2px #808080 solid;
+  height: 80%;
+  padding: 10px;
+}
+
+.times {
+  align-self: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.endInput {
+  background-color: #36cc;
+  border: 2px #98bcff solid;
+
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 75%;
+}
+
+.endInput p {
+  padding: 10px;
+}
+
+.endInput input {
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.resetOptions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.resetOptions button {
+  width: calc(100%/3);
+  margin: 0 2%;
+  padding: 20px;
+  text-transform: capitalize;
+}
+
+/* .cancel, .confirm {
+  padding: 20px 40px;
+} */
+
+.cancel {
+  background-color: crimson;
+}
+
+.cancel:hover, .cancel:focus {
+  background-color: #ff8d8d;
+}
+
+.confirm {
+  background-color: #5271b4;
+}
+
+.confirm:hover, .confirm:focus {
+  background-color: #98bcff;
+}
+
+/* //////////////////////////// */
 
 .game_rules_holder {
   background-color: #444c;

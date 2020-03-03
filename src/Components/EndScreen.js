@@ -4,27 +4,49 @@ class EndScreen extends Component {
   constructor() {
     super();
 
-    this.state = {}
+    this.state = {
+      name: ''
+    }
+  }
+
+  setName = (e) => {
+    this.setState({name: e.target.value});
   }
 
   render() {
     return (
-      <div className="endScreen">
+      <div className="endScreen container">
         <aside>
-          <ul className="topTen">
-
+          <h3>Best Times</h3>
+          <ul className="bestTimes">
+            {this.props.bestArray.map((time, i) => {
+              return(
+                <li key={i}><span>{time.name}</span><span>{time.time}</span></li>
+              );
+            })}
           </ul>
         </aside>
-        <div class="endHeader">
-          <h2>All cards matched, commander!</h2>
-        </div>
-        <div class="reset_box_times">
-          <p>Your Time: <span class="timer">00:00:00</span></p>
-          <p>Best Time: <span class="best_time">00:00:00</span></p>
-        </div>
-        <div class="reset_options">
-          <button class="cancel">Cancel</button>
-          <button class="confirm">Confirm</button>
+        <div className="endContent">
+          <div className="endHeader">
+            <h2>All cards matched, commander!</h2>
+            <h3>Want to play again?</h3>
+          </div>
+          <div className="endText">
+            <div className="times">
+              <p>Your Time: {this.props.currentTime}</p>
+              <p>Best Time: {this.props.bestTime}</p>
+            </div>
+            <div className="endInput">
+              <p>Enter your name and hit save to record your score!</p>
+              <label htmlFor="name" className="sr-only">Enter Your Name</label>
+              <input id="name" type="text" placeholder="Enter Your Name" onChange={this.setName}/>
+            </div>
+          </div>
+          <div className="resetOptions">
+            <button className="cancel">Cancel</button>
+            {this.props.nameSaved ? null : <button onClick={() => {this.props.record(this.state.name)}} className="save">save</button>}
+            <button onClick={this.props.reset} className="confirm">Confirm</button>
+          </div>
         </div>
       </div>
     );

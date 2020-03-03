@@ -12,9 +12,7 @@ import eugen from '../assets/images/5.png';
 import shoukaku from '../assets/images/6.png';
 import unicorn from '../assets/images/7.png';
 import yamashiro from '../assets/images/8.png';
-import manjuu from '../assets/images/manjuuLogo.png';
-import yongshi from '../assets/images/yongshiLogo.png';
-import yostar from '../assets/images/yostarLogo.png';
+import EndScreen from './EndScreen.js';
 
 class Game extends Component {
   constructor() {
@@ -43,6 +41,8 @@ class Game extends Component {
       firstFlip: false,
       firstCardSelected: false,
       wrong: false,
+      end: false,
+      nameRecorded: false,
 
       bestTimes: [],
       deck: [],
@@ -97,7 +97,9 @@ class Game extends Component {
       this.setState({
         start: false,
         resetting: false,
-        firstFlip: false
+        firstFlip: false,
+        end: false,
+        nameRecorded: false
       });
     }, 500);
   }
@@ -131,10 +133,8 @@ class Game extends Component {
         if (!this.state.firstCard) {
           this.setState({ firstCard: card });
         } else {
-          console.log(this.state.firstCard, card);
           // compare the first and second cards for a match and checks for a win
           if (this.state.firstCard.state.face === card.state.face) {
-            console.log('match');
             this.state.firstCard.setState({ matched: true }, () => { this.setState({ firstCard: undefined }) });
             card.setState({ matched: true }, () => {
               if (this.checkWin()) {
@@ -142,7 +142,6 @@ class Game extends Component {
               }
             });
           } else {
-            console.log('NOPE');
             // punish a wrong guess and flip the 2 selected cards back down
             this.setState({ wrong: true });
             setTimeout(() => {
@@ -159,17 +158,9 @@ class Game extends Component {
 
           if (card.state.matched) {
             if (this.checkWin()) {
-              alert(`YOU WON`);
-              // $(".reset_box").toggleClass("reset_hidden");
-              let tempName = prompt("Enter name to save best time");
-              this.setState({name: tempName}, () => {
-                const bestTimeData = {
-                  name: this.state.name,
-                  time: this.timer.current.getBestTime()
-                };
-                this.bestTimesRef.push(bestTimeData);
+              this.setState({
+                end: true
               });
-              this.reset();
             }
           }
         }, 500);
@@ -179,7 +170,6 @@ class Game extends Component {
 
   cardSelection = (card) => {
     if (!this.state.start) {
-      console.log("game has started");
       this.setState({ start: true });
       this.showGameBoard();
     } else {
@@ -188,7 +178,6 @@ class Game extends Component {
   }
 
   showGameBoard = () => {
-    console.log(this.cardData);
     this.setState({ showingBoard: true });
     this.cardData.forEach((card) => {
       card.setState({ selected: true });
@@ -205,6 +194,19 @@ class Game extends Component {
 
   getCardData = (card) => {
     this.cardData.push(card);
+  }
+
+  recordTime = (inputName) => {
+    this.setState({ 
+      name: inputName, 
+      nameRecorded: true
+    }, () => {
+      const bestTimeData = {
+        name: this.state.name,
+        time: this.timer.current.getBestTime()
+      };
+      this.bestTimesRef.push(bestTimeData);
+    });
   }
 
   buildDeck = () => {
@@ -240,28 +242,38 @@ class Game extends Component {
     return timeInCentiseconds;
   }
 
-  displayBestTimes = () => {
-    console.log(this.state.bestTimes);
+  sortBestTimes = (timeArray) => {
+    timeArray.sort((timeA, timeB) => {
+      return this.convertTimeToNumber(timeA.time) - this.convertTimeToNumber(timeB.time);
+    })
+    this.setState({
+      bestTimes: timeArray
+    });
   }
 
   componentDidMount() {
     this.buildDeck();
     this.bestTimesRef.on('value', (response) => {
       const timeArray = Object.values(response.val());
-      timeArray.sort((timeA, timeB) => {
-        return this.convertTimeToNumber(timeA.time) - this.convertTimeToNumber(timeB.time);
-      })
-      this.setState({
-        bestTimes: timeArray
-      }, () => {console.log(this.state.bestTimes)});
+      this.sortBestTimes(timeArray);
     });
   }
 
   render() {
     return (
-      <div className="frame">
-        <Timer ref={this.timer} />
-        <Board board={this.state.board} />
+      <div className="container">
+        <div className="frame">
+          <Timer ref={this.timer} />
+          <Board board={this.state.board} />
+        </div>
+        {this.state.end ? <EndScreen 
+          bestArray={this.state.bestTimes}
+          currentTime={this.timer.current.getCurrentTime()}
+          bestTime={this.timer.current.getBestTime()}
+          reset={this.reset} record={this.recordTime}
+          nameSaved={this.state.nameRecorded}/>
+          : null}
+          {/* <EndScreen bestArray={this.state.bestTimes} reset={this.reset} record={this.recordTime} nameSaved={this.state.nameRecorded}/> */}
       </div>
     );
   }
