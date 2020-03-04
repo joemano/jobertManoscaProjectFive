@@ -70,7 +70,7 @@ class App extends Component {
       <Fragment>
         {this.state.splash ? <Splash disclaimer={this.setDisclaimer}/> : null}
         {this.state.disclaimer ? <Disclaimer title={this.setTitle}/> : null}
-        {this.state.title ? <TitleScreen game={this.setGame}/> : null}
+        {this.state.title ? <TitleScreen bestTimes={this.state.bestTimes} game={this.setGame}/> : null}
         {this.state.game ? <Game title={this.setTitle} bestTimesRef={this.bestTimesRef} bestTimes={this.state.bestTimes}/> : null}
       </Fragment>
     );

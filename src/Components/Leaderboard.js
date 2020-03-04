@@ -8,12 +8,17 @@ class Leaderboard extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="leaderboard">
-        <ul className="leaderTimes">
-
+        <h2>Best Times</h2>
+        <ul className="bestTimes">
+          {this.props.bestTimes.map((time, i) => {
+            return (
+              <li key={i}><span>{time.name}</span><span>{time.time}</span></li>
+            );
+          })}
         </ul>
-        <button>back</button>
+        <button className="backButton" onClick={this.props.close}>back</button>
       </div>
     );
   }
