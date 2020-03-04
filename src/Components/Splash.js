@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import manjuu from '../assets/images/manjuuLogo.png'
-import yongshi from '../assets/images/yongshiLogo.png'
-import yostar from '../assets/images/yostarLogo.png'
+import manjuu from '../assets/images/manjuuLogo.png';
+import yongshi from '../assets/images/yongshiLogo.png';
+import yostar from '../assets/images/yostarLogo.png';
 
 class Splash extends Component {
   constructor() {

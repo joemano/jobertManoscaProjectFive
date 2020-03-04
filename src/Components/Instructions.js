@@ -40,7 +40,7 @@ class Instructions extends Component {
           </p>
           <p>Press ENTER or SPACEBAR to flip a card.</p>
         </div>
-        <button onClick={this.props.close}>back</button>
+        <button className="backButton" onClick={this.props.close}>back</button>
       </div>
     );
   }

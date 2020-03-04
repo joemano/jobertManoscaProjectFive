@@ -49,7 +49,7 @@ ul {
   list-style: none;
 }
 
-h1, h2, h3, .time_text {
+h1, h2, h3, .timeText {
   font-family: 'Lato', sans-serif;
 }
 
@@ -58,11 +58,11 @@ a {
   text-decoration: none;
 }
 
-nav a, .external_links a {
+.externalLinks a {
   position: relative;
 }
 
-nav a:after, .external_links a:after {
+.externalLinks a:after {
   position: absolute;
   content: "";
   background-color: #f8f8f8;
@@ -75,8 +75,7 @@ nav a:after, .external_links a:after {
   transition: transform 0.2s ease-in;
 }
 
-nav a:hover:after, nav a:focus:after, nav a:active:after,
-.external_links a:hover:after, .external_links a:focus:after, .external_links a:active:after {
+.externalLinks a:hover:after, .externalLinks a:focus:after, .externalLinks a:active:after {
   transform: scaleX(1);
   transform-origin: left bottom;
   transition: transform 0.2s ease-in;
@@ -306,7 +305,7 @@ button {
 /* /////////////////////////// */
 /* INSTRUCTION */
 /* /////////////////////////// */
-.instructions {
+.instructions, .leaderboard, .credits{
   position: absolute;
   background-color: #444d;
   border: 2px #808080 solid;
@@ -321,7 +320,7 @@ button {
   justify-content: space-between;
 }
 
-.instructions h2 {
+.instructions h2, .leaderboard h2 {
   background-color: #36cc;
   border: 2px #98bcff solid;
   margin-bottom: 25px;
@@ -335,7 +334,7 @@ button {
   margin: 25px 0;
 }
 
-.instructions button {
+.backButton {
   align-self: center;
   width: 25%;
   min-width: 300px;
@@ -347,7 +346,7 @@ button {
   text-transform: uppercase;
 }
 
-.instructions button:hover {
+.backButton:hover {
   background: #ff8d8d;
 }
 /* /////////////////////////// */
@@ -478,15 +477,18 @@ aside {
   margin-right: 10px;
   background: #222c;
   text-align: center;
+}
+
+.leaderboard ul, aside {
   overflow-y: scroll;
 }
 
-aside::-webkit-scrollbar {
+aside::-webkit-scrollbar, .leaderboard ul::-webkit-scrollbar {
   width: 10px;
 }
 
 
-aside::-webkit-scrollbar-thumb {
+aside::-webkit-scrollbar-thumb, .leaderboard ul::-webkit-scrollbar-thumb {
   background: #666; 
 }
 
@@ -589,65 +591,77 @@ aside h3 {
 }
 
 /* /////////////////////////// */
-/* FOOTER */
+/* CREDITS */
 /* /////////////////////////// */
 
-footer {
-  background-color: #222c;
-  border-top: 2px #808080 solid;
+.credits .developers {
+  opacity: 1;
+  animation: none;
 }
 
-.footer_flex {
+.creditsContent {
+  background-color: #222c;
+  border: 2px #808080 solid;
+  margin-bottom: 20px;
+
   display: flex;
   justify-content: space-between;
-  padding: 25px 0;
+
+  height: 100%;
 }
 
-.foot_flex_item {
+.creditItem {
   width: calc((100%/3) - 3%);
 }
 
-.store_buttons, .external_links_holder, .sm_links_holder {
+.storeButtons, .externalLinksHolder, .smLinksHolder {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.store_buttons {
+.storeButtons {
   flex-direction: column;
 }
 
-.app_store, .play_store {
+.buttonFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appStore, .playStore {
   margin: 10px 0;
 }
 
-.play_store {
+.playStore {
   width: 50%;
 }
 
-.play_store img{
+.playStore img{
   object-fit: contain;
   height: auto;
 }
 
-.app_store {
+.appStore {
   width: 50%;
   height: auto;
 }
 
-.external_links {
+.externalLinks {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.external_links li {
+.externalLinks li {
   width: 100%;
+  margin: 10px 0;
 }
 
-.external_links a {
+.externalLinks a {
   font-size: 2rem;
   font-weight: 700;
   display: inline-block;
@@ -655,21 +669,21 @@ footer {
   padding: 10px;
 }
 
-.sm_links {
+.smLinks {
   display: flex;
   flex-wrap: wrap;
 }
 
-.sm_links li {
+.smLinks li {
   width: calc(100%/3);
   margin: 15px 0;
 }
 
-.sm_links a {
+.smLinks a {
   font-size: 4rem;
 }
 
-.sm_links a:hover, .sm_links a:focus {
+.smLinks a:hover, .smLinks a:focus {
   color: #36c;
   transition: all 0.3s ease-in;
 }
