@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import firebase from '../firebase.js';
+
 import Timer from './Timer.js';
 import Board from './Board.js';
 import Card from './Card.js';
@@ -18,6 +18,7 @@ class Game extends Component {
   constructor() {
     super();
 
+    // These things don't change so I found no need to put them in state
     this.cardFaces = [
       akagi, atago, hammann, kaga, pinghai, eugen, shoukaku, unicorn, yamashiro
     ];
@@ -25,8 +26,6 @@ class Game extends Component {
     this.cardData = [];
 
     this.timer = createRef();
-    this.dbRef = firebase.database().ref();
-    this.bestTimesRef = firebase.database().ref('bestTimes');
 
     // this.flipping = false;
     this.state = {
@@ -44,12 +43,12 @@ class Game extends Component {
       end: false,
       nameRecorded: false,
 
-      bestTimes: [],
       deck: [],
       board: [],
     }
   }
 
+  // loop through the list of cards and check if the number of matches is the same as the number of cards
   checkWin = () => {
     const matches = this.cardData.filter((card) => {
       return card.state.matched;
@@ -62,6 +61,7 @@ class Game extends Component {
     }
   }
 
+  // reassign face types to each of the cards on reset
   boardReset = () => {
     const deck = [];
     for (let i = 0; i < 2; i++) {
@@ -79,8 +79,8 @@ class Game extends Component {
     })
   }
 
+  // Reset the game
   reset = () => {
-    // $(".reset_box").toggleClass("reset_hidden");
     this.setState({resetting: true});
 
     this.cardData.forEach((card) => {
@@ -104,19 +104,9 @@ class Game extends Component {
     }, 500);
   }
 
+  // logic for checking if a card is matched.
   checkMatch = (card) => {
-
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
-
-      // console.log("selected : ", card.state.selected);
-      // console.log("wrong : ", this.state.wrong);
-      // console.log("start : ", this.state.start);
-      // console.log("showing : ", this.state.showingBoard);
-      // console.log("flipping : ", this.state.flipping);
-      // console.log("first flip : ", this.state.firstFlip);
-      // console.log("first card pick : ", this.state.firstCardSelected);
-      // console.log("-------------------------------------");
-
 
       //lock flipping function while a card is flipping so they don't flip the whole board at once.
       if (!this.state.flipping) {
@@ -138,6 +128,7 @@ class Game extends Component {
             this.state.firstCard.setState({ matched: true }, () => { this.setState({ firstCard: undefined }) });
             card.setState({ matched: true }, () => {
               if (this.checkWin()) {
+                // Stop the timer when they click the last match
                 this.timer.current.stopTimer();
               }
             });
@@ -157,6 +148,7 @@ class Game extends Component {
           this.setState({ flipping: false });
 
           if (card.state.matched) {
+            // Wait until the last card is flipped before ending the game
             if (this.checkWin()) {
               this.setState({
                 end: true
@@ -168,6 +160,7 @@ class Game extends Component {
     }
   }
 
+  // Signal that a card is being selected. Change start state to true if the game hasn't started yet
   cardSelection = (card) => {
     if (!this.state.start) {
       this.setState({ start: true });
@@ -177,6 +170,7 @@ class Game extends Component {
     }
   }
 
+  // Reveals all cards to the user before flipping them back down
   showGameBoard = () => {
     this.setState({ showingBoard: true });
     this.cardData.forEach((card) => {
@@ -192,10 +186,12 @@ class Game extends Component {
     }, 3500);
   }
 
+  // stores a reference to the card into an array
   getCardData = (card) => {
     this.cardData.push(card);
   }
 
+  // Takes a received string and pushes it into the database along with the best time
   recordTime = (inputName) => {
     this.setState({ 
       name: inputName, 
@@ -205,10 +201,11 @@ class Game extends Component {
         name: this.state.name,
         time: this.timer.current.getBestTime()
       };
-      this.bestTimesRef.push(bestTimeData);
+      this.props.bestTimesRef.push(bestTimeData);
     });
   }
 
+  // Builds a deck of all possible card faces and only allow 2 instances of each
   buildDeck = () => {
     const deck = [];
     for (let i = 0; i < 2; i++) {
@@ -219,6 +216,7 @@ class Game extends Component {
     this.setState({ deck: deck }, this.setUpBoard);
   }
 
+  // builds the grid to store into a state before passing to the board component for display
   setUpBoard = () => {
     const board = [[], [], []];
     let randomNumber;
@@ -236,27 +234,8 @@ class Game extends Component {
     })
   }
 
-  convertTimeToNumber = (timeString) => {
-    const timeArray = timeString.split(":");
-    const timeInCentiseconds = (parseInt(timeArray[0]) * 6000) + (parseInt(timeArray[1]) * 100) + parseInt(timeArray[2]);
-    return timeInCentiseconds;
-  }
-
-  sortBestTimes = (timeArray) => {
-    timeArray.sort((timeA, timeB) => {
-      return this.convertTimeToNumber(timeA.time) - this.convertTimeToNumber(timeB.time);
-    })
-    this.setState({
-      bestTimes: timeArray
-    });
-  }
-
   componentDidMount() {
     this.buildDeck();
-    this.bestTimesRef.on('value', (response) => {
-      const timeArray = Object.values(response.val());
-      this.sortBestTimes(timeArray);
-    });
   }
 
   render() {
@@ -266,14 +245,15 @@ class Game extends Component {
           <Timer ref={this.timer} />
           <Board board={this.state.board} />
         </div>
+        {/* Display End screen only if the end state is true. Also pass it the info it needs for display */}
         {this.state.end ? <EndScreen 
-          bestArray={this.state.bestTimes}
+          bestArray={this.props.bestTimes}
           currentTime={this.timer.current.getCurrentTime()}
           bestTime={this.timer.current.getBestTime()}
           reset={this.reset} record={this.recordTime}
-          nameSaved={this.state.nameRecorded}/>
+          nameSaved={this.state.nameRecorded}
+          title={this.props.title}/>
           : null}
-          {/* <EndScreen bestArray={this.state.bestTimes} reset={this.reset} record={this.recordTime} nameSaved={this.state.nameRecorded}/> */}
       </div>
     );
   }
