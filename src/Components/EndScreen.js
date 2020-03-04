@@ -13,6 +13,13 @@ class EndScreen extends Component {
     this.setState({name: e.target.value});
   }
 
+  recordName = () => {
+    // prevent user from entering empty string
+    if(this.state.name) {
+      this.props.record(this.state.name);
+    }
+  }
+
   render() {
     return (
       <div className="endScreen container">
@@ -44,7 +51,7 @@ class EndScreen extends Component {
           </div>
           <div className="resetOptions">
             <button className="cancel" onClick={this.props.title}>Back to Title</button>
-            {this.props.nameSaved ? null : <button onClick={() => {this.props.record(this.state.name)}} className="save">save</button>}
+            {this.props.nameSaved ? null : <button onClick={this.recordName} className="save">save</button>}
             <button onClick={this.props.reset} className="confirm">Play Again</button>
           </div>
         </div>
