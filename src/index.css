@@ -767,6 +767,20 @@ aside h3 {
   .appStore {
     padding-right: 20px;
   }
+
+  aside {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  aside{
+    display: none;
+  }
+
+  .endContent {
+    width: 100%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -784,6 +798,18 @@ aside h3 {
 
   .disclaimerText {
     width: 100%;
+  }
+
+  .titleOptions button {
+    padding: 10px;
+  }
+
+  .instructions h2 {
+    margin: 0;
+  }
+
+  .instructions li {
+    margin: 15px 0;
   }
 
   .timeText {
@@ -818,5 +844,9 @@ aside h3 {
 
   .menu .rules li {
     margin: 15px 0;
+  }
+
+  .endText {
+    background-image: none;
   }
 }
