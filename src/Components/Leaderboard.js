@@ -9,7 +9,7 @@ class Leaderboard extends Component {
 
   render() {
     return (
-      <div className="leaderboard">
+      <div className="leaderboard container">
         <h2>Best Times</h2>
         <ul className="bestTimes">
           {this.props.bestTimes.map((time, i) => {
