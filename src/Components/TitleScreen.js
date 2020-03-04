@@ -37,12 +37,15 @@ class TitleScreen extends Component {
           {/* I chose H1 because it's what my app is called */}
           <h1>Memory Lane</h1>
         </header>
-        <ul className="titleOptions">
-          <li><button onClick={this.props.game}>start</button></li>
-          <li><button onClick={() => {this.setState({instructions: true})}}>instructions</button></li>
-          <li><button onClick={() => {this.setState({leaderboard: true})}}>leaderboard</button></li>
-          <li><button onClick={() => {this.setState({credits: true})}}>credits</button></li>
-        </ul>
+        {!this.state.instructions && !this.state.leaderboard && !this.state.Credits ? 
+          <ul className="titleOptions">
+            <li><button onClick={this.props.game}>start</button></li>
+            <li><button onClick={() => {this.setState({instructions: true})}}>instructions</button></li>
+            <li><button onClick={() => {this.setState({leaderboard: true})}}>leaderboard</button></li>
+            <li><button onClick={() => {this.setState({credits: true})}}>credits</button></li>
+          </ul>
+        : null}
+        {this.state.instructions ? <Instructions close={this.closeInstructions}/> : null}
       </div>
     );
   }
