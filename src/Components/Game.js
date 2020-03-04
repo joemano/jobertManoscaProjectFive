@@ -18,6 +18,7 @@ class Game extends Component {
   constructor() {
     super();
 
+    // These things don't change so I found no need to put them in state
     this.cardFaces = [
       akagi, atago, hammann, kaga, pinghai, eugen, shoukaku, unicorn, yamashiro
     ];
@@ -78,8 +79,8 @@ class Game extends Component {
     })
   }
 
+  // Reset the game
   reset = () => {
-    // $(".reset_box").toggleClass("reset_hidden");
     this.setState({resetting: true});
 
     this.cardData.forEach((card) => {
@@ -103,8 +104,8 @@ class Game extends Component {
     }, 500);
   }
 
+  // logic for checking if a card is matched.
   checkMatch = (card) => {
-
     if (!card.state.selected && !card.state.matched && !this.state.wrong && !this.state.showingBoard && !this.state.resetting && this.state.start) {
 
       //lock flipping function while a card is flipping so they don't flip the whole board at once.
@@ -159,6 +160,7 @@ class Game extends Component {
     }
   }
 
+  // Signal that a card is being selected. Change start state to true if the game hasn't started yet
   cardSelection = (card) => {
     if (!this.state.start) {
       this.setState({ start: true });
@@ -168,6 +170,7 @@ class Game extends Component {
     }
   }
 
+  // Reveals all cards to the user before flipping them back down
   showGameBoard = () => {
     this.setState({ showingBoard: true });
     this.cardData.forEach((card) => {
@@ -183,10 +186,12 @@ class Game extends Component {
     }, 3500);
   }
 
+  // stores a reference to the card into an array
   getCardData = (card) => {
     this.cardData.push(card);
   }
 
+  // Takes a received string and pushes it into the database along with the best time
   recordTime = (inputName) => {
     this.setState({ 
       name: inputName, 
@@ -200,6 +205,7 @@ class Game extends Component {
     });
   }
 
+  // Builds a deck of all possible card faces and only allow 2 instances of each
   buildDeck = () => {
     const deck = [];
     for (let i = 0; i < 2; i++) {
@@ -210,6 +216,7 @@ class Game extends Component {
     this.setState({ deck: deck }, this.setUpBoard);
   }
 
+  // builds the grid to store into a state before passing to the board component for display
   setUpBoard = () => {
     const board = [[], [], []];
     let randomNumber;
@@ -238,6 +245,7 @@ class Game extends Component {
           <Timer ref={this.timer} />
           <Board board={this.state.board} />
         </div>
+        {/* Display End screen only if the end state is true. Also pass it the info it needs for display */}
         {this.state.end ? <EndScreen 
           bestArray={this.props.bestTimes}
           currentTime={this.timer.current.getCurrentTime()}

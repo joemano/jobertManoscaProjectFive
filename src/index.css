@@ -242,11 +242,68 @@ button {
 }
 
 /* /////////////////////////// */
-/* HEADER */
+/* TITLE */
 /* /////////////////////////// */
 
+.titleScreen {
+  background: url("./assets/images/titleBackground.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  line-height: normal;
+  text-align: center;
+}
+
+.titleScreen h1 {
+  background-color: #36cc;
+  border: 2px #98bcff solid;
+  padding: 10px;
+
+  letter-spacing: 2rem;
+  text-transform: uppercase;
+}
+
+.azurLaneLogo {
+  width: 100%;
+}
+
+.azurLaneLogo img {
+  width: 100%;
+}
+
+.titleOptions {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.titleOptions button {
+  background-color: #222c;
+  border: 2px #808080 solid;
+  color: #f8f8f8;
+  text-transform: uppercase;
+
+  margin: 10px 0;
+  padding: 20px;
+
+  width: 100%;
+}
+
+.titleOptions button:hover, .titleOptions button:focus {
+  border-color: #98bcff;
+  background-color: #36cc;
+}
 /* /////////////////////////// */
-/* MAIN */
+/* GAME */
 /* /////////////////////////// */
 
 .frame {

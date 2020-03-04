@@ -30,10 +30,13 @@ class TitleScreen extends Component {
   render() {
     return(
       <div className="titleScreen">
-        <div class="azurLaneLogo">
-          <img src={azurLaneLogo} alt="Logo of Azur Lane English servers." />
-        </div>
-        <h1>Memory Lane</h1>
+        <header>
+          <div class="azurLaneLogo">
+            <img src={azurLaneLogo} alt="Logo of Azur Lane English servers." />
+          </div>
+          {/* I chose H1 because it's what my app is called */}
+          <h1>Memory Lane</h1>
+        </header>
         <ul className="titleOptions">
           <li><button onClick={this.props.game}>start</button></li>
           <li><button onClick={() => {this.setState({instructions: true})}}>instructions</button></li>
