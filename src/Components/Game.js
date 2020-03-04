@@ -13,6 +13,7 @@ import shoukaku from '../assets/images/6.png';
 import unicorn from '../assets/images/7.png';
 import yamashiro from '../assets/images/8.png';
 import EndScreen from './EndScreen.js';
+import Menu from './Menu.js';
 
 class Game extends Component {
   constructor() {
@@ -40,6 +41,7 @@ class Game extends Component {
       firstFlip: false,
       firstCardSelected: false,
       wrong: false,
+      pause: false,
       end: false,
       nameRecorded: false,
 
@@ -234,17 +236,23 @@ class Game extends Component {
     })
   }
 
+  unpause = () => {
+    this.setState({pause: false});
+  }
+
   componentDidMount() {
     this.buildDeck();
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="game container">
         <div className="frame">
-          <Timer ref={this.timer} />
+          <Timer ref={this.timer} paused={this.state.pause}/>
           <Board board={this.state.board} />
         </div>
+        <button className="pause" onClick={() => {this.setState({pause: true})}}><i className="fas fa-bars"></i></button>
+        {this.state.pause ? <Menu bestTimes={this.props.bestTimes} title={this.props.title} unpause={this.unpause}/> : null}
         {/* Display End screen only if the end state is true. Also pass it the info it needs for display */}
         {this.state.end ? <EndScreen 
           bestArray={this.props.bestTimes}

@@ -90,6 +90,7 @@ img {
 button {
   border: none;
   cursor: pointer;
+  color: #f8f8f8;
 }
 
 .container {
@@ -178,7 +179,6 @@ button {
 .continue {
   position: relative;
   background: none;
-  color: #f8f8f8;
   text-transform: capitalize;
 
   padding: 10px 20px;
@@ -286,10 +286,9 @@ button {
   justify-content: center;
 }
 
-.titleOptions button {
+.titleOptions button, .menuButton {
   background-color: #222c;
   border: 2px #808080 solid;
-  color: #f8f8f8;
   text-transform: uppercase;
 
   margin: 10px 0;
@@ -298,6 +297,7 @@ button {
   width: 100%;
 }
 
+.menuButton:hover, .menuButton:focus,
 .titleOptions button:hover, .titleOptions button:focus {
   border-color: #98bcff;
   background-color: #36cc;
@@ -305,7 +305,7 @@ button {
 /* /////////////////////////// */
 /* INSTRUCTION */
 /* /////////////////////////// */
-.instructions, .leaderboard, .credits{
+.instructions, .leaderboard, .credits, .menu {
   position: absolute;
   background-color: #444d;
   border: 2px #808080 solid;
@@ -341,7 +341,6 @@ button {
   padding: 10px;
 
   background: crimson;
-  color: #f8f8f8;
 
   text-transform: uppercase;
 }
@@ -349,9 +348,39 @@ button {
 .backButton:hover {
   background: #ff8d8d;
 }
+
+.menuList {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.menu, .menu .leaderboard, .menu .instructions {
+  top: 0;
+  left: 0;
+}
 /* /////////////////////////// */
 /* GAME */
 /* /////////////////////////// */
+
+.game {
+  /* helps position the menu overlay */
+  position: relative;
+}
+
+.pause {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 3.2rem;
+  background: none;
+}
+
+.pause:hover, .pause:focus {
+  color: #ee9;
+}
 
 .frame {
   display: flex;
@@ -698,3 +727,84 @@ aside h3 {
 /* /////////////////////////// */
 /* MEDIA QUERIES */
 /* /////////////////////////// */
+
+@media (max-width: 940px) {
+  .credits {
+    background: #222;
+    height: auto;
+  }
+
+  .creditsContent {
+    flex-wrap: wrap;
+    border: none;
+  }
+  /* Stack footer elements on top of each other */
+  .creditItem, .buttonFlex, .smLinks{
+    width: 100%;
+  }
+
+  .buttonFlex {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .smLinks {
+    text-align: center;
+  }
+
+  .appStore {
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .disclaimerContent {
+    flex-direction: column;
+    height: 85%;
+  }
+
+  .disclaimerImage {
+    width: 100%;
+    max-height: 250px;
+    order: 1;
+  }
+
+  .disclaimerText {
+    width: 100%;
+  }
+
+  .timeText {
+    font-size: 1.4rem;
+  }
+
+  .gameCardHolder {
+    width: calc((100%/3) - 3%);
+  }
+}
+
+@media (max-width: 420px) {
+  .disclaimer h2 {
+    letter-spacing: 1rem;
+  }
+
+  .disclaimerImage {
+    transform: rotateY(180deg);
+  }
+
+  .appStore {
+    padding-right: 0px;
+  }
+
+  .buttonFlex {
+    flex-direction: column;
+  }
+
+  .menu .instructions h2 {
+    margin: 0;
+  }
+
+  .menu .rules li {
+    margin: 15px 0;
+  }
+}

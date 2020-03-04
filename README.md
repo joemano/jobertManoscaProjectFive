@@ -15,13 +15,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Styling
 
-### Add basic styles(WIP)
+### Add basic styles(Half Done)
 Fonts, colors, backgrounds and whatnot.
 
-### Add splash screen(WIP)
+### Add splash screen(DONE!)
 Show logos of the people who made the original game this project is based on.
 
-### Add disclaimer(WIP)
+### Add disclaimer(DONE!)
 I don't own any of the pictures used so add a window that says that with a continue button.
 
 ### Actually display the cards in a grid(DONE!)

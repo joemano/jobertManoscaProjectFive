@@ -36,10 +36,12 @@ class Timer extends Component {
   }
   // Timer maths n logic goes here
   tick = () => {
-    this.setState({
-      centiseconds: this.state.centiseconds + 1,
-      totalCentiseconds: this.state.totalCentiseconds + 1
-    });
+    if(!this.props.paused) {
+      this.setState({
+        centiseconds: this.state.centiseconds + 1,
+        totalCentiseconds: this.state.totalCentiseconds + 1
+      });
+    }
   }
 
   startTimer = () => {

@@ -39,13 +39,13 @@ class EndScreen extends Component {
             <div className="endInput">
               <p>Enter your name and hit save to record your score!</p>
               <label htmlFor="name" className="sr-only">Enter Your Name</label>
-              <input id="name" type="text" placeholder="Enter Your Name" onChange={this.setName}/>
+              <input id="name" type="text" placeholder="Enter Your Name" maxLength="20" onChange={this.setName}/>
             </div>
           </div>
           <div className="resetOptions">
-            <button className="cancel" onClick={this.props.title}>Cancel</button>
+            <button className="cancel" onClick={this.props.title}>Back to Title</button>
             {this.props.nameSaved ? null : <button onClick={() => {this.props.record(this.state.name)}} className="save">save</button>}
-            <button onClick={this.props.reset} className="confirm">Confirm</button>
+            <button onClick={this.props.reset} className="confirm">Play Again</button>
           </div>
         </div>
       </div>
