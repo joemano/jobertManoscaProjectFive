@@ -442,6 +442,10 @@ button {
   transform-style: preserve-3d;
 }
 
+.gameCard:focus {
+  outline: 4px #98bcff solid;
+}
+
 /* Prevent highlighting on cards */
 .gameCard img, .gameCard p {
   -moz-user-select: -moz-none;

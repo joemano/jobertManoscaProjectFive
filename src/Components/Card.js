@@ -15,10 +15,6 @@ class Card extends Component {
     };
   }
 
-  componentDidUpdate() {
-    // console.log(this.state.selected, this.state.matched);
-  }
-
   componentDidMount() {
     this.props.getData(this);
   }
@@ -66,7 +62,8 @@ class Card extends Component {
             <img src={cardBack} alt="back of card."/>
           </div>
           <div className="gameCardFace">
-            <img src={this.state.face} alt=""/>
+            {/* I'm not sure if telling them the face of the card is good for a card match game */}
+            <img src={this.state.face} alt="face of card"/>
           </div>
           {this.state.matched ? <p className="match">Match</p> : null}
         </div>
