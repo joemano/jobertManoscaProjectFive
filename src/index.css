@@ -611,6 +611,14 @@ aside h3 {
   background-color: #ff8d8d;
 }
 
+.save {
+  color: #222;
+}
+
+.save:hover, .save:focus {
+  background-color: #d3d3d3;
+}
+
 .confirm {
   background-color: #5271b4;
 }
